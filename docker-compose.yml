@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  server:
+    build: ./server
+    ports:
+      - "8000:8000"
+
+  client:
+    build: ./client
+    ports:
+      - "3000:80"
+    
+  db:
+    build:
+      context: ./DB
+      dockerfile: Dockerfile
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: ${TZ}
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/mysql-store:/var/lib/mysql
+      - ./db/mysql-logs:/var/log/mysql
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_bin']

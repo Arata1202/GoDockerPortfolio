@@ -1,0 +1,43 @@
+.slick-dots li.slick-active button:before {
+    color: white;
+  }
+  
+  /* 非アクティブなドットのスタイル */
+  .slick-dots li button:before {
+    color: lightgrey;
+  }
+
+  /* バナー */
+  @keyframes blinker {
+    60% {
+      opacity: 0;
+    }
+  }
+  
+  .blinking-text {
+    animation: blinker 3s linear infinite;
+  }
+
+  .grecaptcha-badge {
+     margin-bottom: 60px!important;
+  }
+
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .fade-in-up {
+    opacity: 0;
+    animation-name: fadeInUp;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+  }
