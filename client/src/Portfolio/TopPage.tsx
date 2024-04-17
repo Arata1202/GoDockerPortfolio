@@ -146,7 +146,27 @@ export default function TopPage() {
   };
 
   const handleConfirmSend = () => {
-    sendEmail();
+    const verifyCaptcha = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/verify_recaptcha', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: `g-recaptcha-response=${captchaValue}`
+        });
+        const data = await response.json();
+        if (data.success) {
+          sendEmail();
+        } else {
+          console.error('reCAPTCHA検証に失敗しました:', data.message);
+        }
+      } catch (error) {
+        console.error('reCAPTCHAの検証中にエラーが発生しました:', error);
+      }
+    };
+  
+    verifyCaptcha();
   };
   const handleCancel = () => {
     setContactDialogOpen(false);
